@@ -6,6 +6,8 @@ from chromadb.config import Settings
 import openai
 from dotenv import load_dotenv
 
+from .misc import estimate_cost
+
 
 def ask(question):
 
@@ -20,7 +22,9 @@ def ask(question):
         {'role': 'user', 'content': f"Question: {question}. \nThe context, written in markdown syntax, is the following:\n<<<{context}>>>\n. Anwer:"}
     ]
 
-    response = gpt_response(prompt)
+    tokens, cost = estimate_cost(prompt)
+    response = ' '.join([str(d) for d in prompt]) + f"\n\nToken count for the prompt: {tokens}, cost estimate in dollars: {cost:.2f}"
+    #response = gpt_response(prompt)
 
     return response
 
