@@ -23,8 +23,8 @@ def ask(question):
     ]
 
     tokens, cost = estimate_cost(prompt)
-    response = ' '.join([str(d) for d in prompt]) + f"\n\nToken count for the prompt: {tokens}, cost estimate in dollars: {cost:.2f}"
-    #response = gpt_response(prompt)
+    #response = ' '.join([str(d) for d in prompt]) + f"\n\nToken count for the prompt: {tokens}, cost estimate in dollars: {cost}"
+    response = gpt_response(prompt)
 
     return response
 
@@ -44,7 +44,7 @@ def gpt_response(prompt):
     return response
 
 
-def load_corpus(name='corpus', chunk_size=1500):
+def load_corpus(name='corpus', chunk_size=2000):
 
     while True:
         try:
