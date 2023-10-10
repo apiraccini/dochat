@@ -14,6 +14,7 @@ def ask(question):
     corpus = load_corpus()
     
     result = corpus.query(query_texts=f'{question}', n_results=3)
+    '''ciao ciao'''
     context = ' '.join([f'DOC: {id}\nCONTENT: {document}\n\n' for id, document in zip(result['ids'][0], result['documents'][0])])
     context = context.rstrip('\n')
     
