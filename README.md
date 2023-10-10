@@ -11,7 +11,7 @@ Starting from this project, a domain-specific RAG bot can be built by employing 
 
 ## Usage guide
 
-In order to start the application, copy and paste the following commands in your terminal (Docker Desktop must be running on your machine):
+In order to start the application, copy and paste the following commands in your terminal (Docker Desktop must be running on your machine, and you also need to store your OpenAI API key in a `.env` file in the project root directory):
 
 ```
 git clone https://github.com/apiraccini/dochat.git
@@ -24,5 +24,5 @@ docker-compose up
 - [ ] Improve the embedding/retrieving steps (chunk size vs result count).
 - [ ] Implement control flows that filter query result based on a threshold distance.
 - [ ] Use hallucination prompts to improve retrieval? See [here](https://cookbook.openai.com/examples/vector_databases/chroma/hyde-with-chroma-and-openai).
-- [ ] Add token length and cost estimation (with `tiktoken`).
+- [x] Add token length and cost estimation (with `tiktoken`).
 - [ ] Make it a chatbot? With `langchain` or without?
