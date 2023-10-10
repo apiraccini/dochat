@@ -22,7 +22,7 @@ docker-compose up
 ## TODO list
 
 - [ ] Improve the embedding/retrieving steps (chunk size vs result count).
-- [ ] Implement controlo flows that filter query result based on a threshold distance.
+- [ ] Implement control flows that filter query result based on a threshold distance.
 - [ ] Use hallucination prompts to improve retrieval? See [here](https://cookbook.openai.com/examples/vector_databases/chroma/hyde-with-chroma-and-openai).
 - [ ] Add token length and cost estimation (with `tiktoken`).
 - [ ] Make it a chatbot? With `langchain` or without?
