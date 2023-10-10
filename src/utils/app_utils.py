@@ -44,7 +44,7 @@ def gpt_response(prompt):
     return response
 
 
-def load_corpus(name='corpus', chunk_size=2000):
+def load_corpus(name='corpus', chunk_size=4000):
 
     while True:
         try:
