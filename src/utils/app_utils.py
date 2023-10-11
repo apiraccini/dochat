@@ -6,14 +6,16 @@ from chromadb.config import Settings
 import openai
 from dotenv import load_dotenv
 
-from .misc import estimate_cost
+from .misc import estimate_cost, filter_result
 
 
 def ask(question):
 
     corpus = load_corpus()
     
-    result = corpus.query(query_texts=f'{question}', n_results=3)
+    raw_result = corpus.query(query_texts=f'{question}', n_results=3)
+    result = filter_result(raw_result)
+
     context = ' '.join([f'DOC: {id}\nCONTENT: {document}\n\n' for id, document in zip(result['ids'][0], result['documents'][0])])
     context = context.rstrip('\n')
     
@@ -21,12 +23,12 @@ def ask(question):
         {'role': 'system', 'content': "Take a deep breath and answer the following question based on the context provided. If you can't find any evidence, say you don't know."},
         {'role': 'user', 'content': f"Question: {question}. \nThe context, written in markdown syntax, is the following:\n<<<{context}>>>\n. Anwer:"}
     ]
-
-    tokens, cost = estimate_cost(prompt)
-    #response = ' '.join([str(d) for d in prompt]) + f"\n\nToken count for the prompt: {tokens}, cost estimate in dollars: {cost}"
-    response = gpt_response(prompt)
-
-    return response
+    
+    response =  gpt_response(prompt)
+    prompt_string =  ' '.join([str(d) for d in prompt])
+    log =  estimate_cost(prompt)
+    
+    return response, prompt_string, log
 
 
 def gpt_response(prompt):
@@ -44,7 +46,7 @@ def gpt_response(prompt):
     return response
 
 
-def load_corpus(name='corpus', chunk_size=4000):
+def load_corpus(name='corpus', chunk_size=3000):
 
     while True:
         try:

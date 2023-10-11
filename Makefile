@@ -17,7 +17,7 @@ up:
 	$(DOCKER_COMPOSE) up -d
 
 down:
-	$(DOCKER_COMPOSE) up
+	$(DOCKER_COMPOSE) down
 
 ps:
 	$(DOCKER_COMPOSE) ps

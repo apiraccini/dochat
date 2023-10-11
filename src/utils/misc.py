@@ -1,5 +1,16 @@
 import tiktoken
 
+def filter_result(result, threshold=100):
+    
+    for ids, docs, distances in zip(result['ids'], result['documents'], result['distances']):
+        for i in range(len(ids)-1, -1, -1):
+            if distances[i] > threshold:
+                ids.pop(i)
+                docs.pop(i)
+                distances.pop(i)
+    return result
+
+
 def estimate_cost(messages, model='gpt-3.5-turbo', max_tokens=512):
 
     encoding = tiktoken.encoding_for_model(model)
@@ -26,5 +37,6 @@ def estimate_cost(messages, model='gpt-3.5-turbo', max_tokens=512):
         cost_per_output_token = 0.06 / 1000
 
     cost_estimate = num_tokens*cost_per_input_token + max_tokens*cost_per_output_token
+    msg = f'Total tokens (input + max output): {num_tokens+max_tokens}; cost estimate: {cost_estimate} dollars.'
     
-    return num_tokens, cost_estimate
+    return msg
